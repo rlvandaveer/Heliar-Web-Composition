@@ -24,7 +24,7 @@ Provides the core composition functionality and container teardown.
 Applies the core composition and teardown functionality against WebAPI.
 
 ####Components:
-**CompositionScopedDependencyResolver**: responsible for beginning a new dependency scope -per web request-.
+**CompositionScopedDependencyResolver**: responsible for beginning a new dependency scope _per web request_.
 
 **CompositionDependencyScope**: passes requests for web request scoped dependencies to the CompositionProvider. Also responsible for teardown of the composition scope.
 
