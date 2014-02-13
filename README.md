@@ -12,28 +12,40 @@ Heliar Web Composition is a set of helper libraries for doing web request scoped
 Provides the core composition functionality and container teardown.
 
 ####Components:
-*CompositionProvider*: providers composition services to an application at both a shared application level, and at a web request scoped level
-*WebApplicationCatalog*: acts as the base container for composed parts for a web application and provides helper methods for registering conventions.
-*ApplicationSharedAttribute*: denotes items that should be shared across the application in a single application level composition container
-*CompositionScopeDisposer*: responsible for teardown of a web request composition scope
+**CompositionProvider**: providers composition services to an application at both a shared application level, and at a web request scoped level
+
+**WebApplicationCatalog**: acts as the base container for composed parts for a web application and provides helper methods for registering conventions.
+
+**ApplicationSharedAttribute**: denotes items that should be shared across the application in a single application level composition container
+
+**CompositionScopeDisposer**: responsible for teardown of a web request composition scope
 
 ###Heliar.ComponentModel.Composition.Web.Http
 Applies the core composition and teardown functionality against WebAPI.
 
 ####Components:
-*CompositionScopedDependencyResolver*: responsible for beginning a new dependency scope -per web request-.
-*CompositionDependencyScope*: passes requests for web request scoped dependencies to the CompositionProvider. Also responsible for teardown of the composition scope.
-*WebApiApplicationCatalog*: inherits from the WebApplicationCatalog and provides basic registration of WebAPI types i.e. controllers.
-*WebApiResolverConfiguration*: wires the CompositionScopedDependencyResolver as the WebAPI's dependency resolver.
+**CompositionScopedDependencyResolver**: responsible for beginning a new dependency scope -per web request-.
+
+**CompositionDependencyScope**: passes requests for web request scoped dependencies to the CompositionProvider. Also responsible for teardown of the composition scope.
+
+**WebApiApplicationCatalog**: inherits from the WebApplicationCatalog and provides basic registration of WebAPI types i.e. controllers.
+
+**WebApiResolverConfiguration**: wires the CompositionScopedDependencyResolver as the WebAPI's dependency resolver.
 
 ###Heliar.ComponentModel.Composition.Web.Mvc
 Applies the core composition functionality against MVC and assists in tearing down of dependency scope at the end of a request.
 
 ####Components:
-*CompositionScopedDependencyResolver*: passes requests for web request scoped dependencies to the CompositionProvider.
-*CompositionScopedFilterAttributeFilterProvider*: uses the CompositionProvider to compose filter dependencies.
-*CompositionScopedModelBinderProvider*: uses the CompositionProvider to compose model binder dependencies.
-*ModelBinderExportAttribute*: assists exporting model binders for composition
-*MvcApplicationCatalog*: inherits from the WebApplicationCatalog and provides basic registration of MVC types i.e. controllers, action filters, model binders.
-*MvcResolverConfiguration*: wires the CompositionScopedDependencyResolver as MVC's dependency resolver.
-*RequestScopedCompositionModule*: HttpModule that uses the CompositionScopeDisposer to tear down the current composition scope.
+**CompositionScopedDependencyResolver**: passes requests for web request scoped dependencies to the CompositionProvider.
+
+**CompositionScopedFilterAttributeFilterProvider**: uses the CompositionProvider to compose filter dependencies.
+
+**CompositionScopedModelBinderProvider**: uses the CompositionProvider to compose model binder dependencies.
+
+**ModelBinderExportAttribute**: assists exporting model binders for composition
+
+**MvcApplicationCatalog**: inherits from the WebApplicationCatalog and provides basic registration of MVC types i.e. controllers, action filters, model binders.
+
+**MvcResolverConfiguration**: wires the CompositionScopedDependencyResolver as MVC's dependency resolver.
+
+**RequestScopedCompositionModule**: HttpModule that uses the CompositionScopeDisposer to tear down the current composition scope.
