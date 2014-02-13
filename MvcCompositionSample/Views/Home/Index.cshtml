@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Composed from MvcCompositionSample.Parts.Foo</h2>
+		<ul>
+			@foreach (var s in ViewBag.Foo.Foos)
+			{
+				<li>@s</li>
+			}
+		</ul>
+</div>
