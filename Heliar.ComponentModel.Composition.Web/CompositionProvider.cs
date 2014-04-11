@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Web;
@@ -35,7 +36,9 @@ namespace Heliar.ComponentModel.Composition.Web
 				initialCatalog = new WebApplicationCatalog();
 
 			var globals = initialCatalog.Filter(cpd => cpd.ContainsPartMetadata(ApplicationShared, true));
-			applicationScopeContainer = new CompositionContainer(globals, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
+		    var compositionContainer = new CompositionContainer(globals, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
+		    ConfigureContainer(compositionContainer);
+		    applicationScopeContainer = compositionContainer;
 
 			requestScopeCatalog = globals.Complement;
 
@@ -48,7 +51,14 @@ namespace Heliar.ComponentModel.Composition.Web
 			}
 		}
 
-		/// <summary>
+	    static void ConfigureContainer(CompositionContainer compositionContainer) {
+	        var compositionBatch = new CompositionBatch();
+	        compositionBatch.AddExportedValue(compositionContainer);
+            compositionBatch.AddExportedValue(compositionContainer.Catalog);
+	        compositionContainer.Compose(compositionBatch);
+	    }
+
+	    /// <summary>
 		/// Gets the composition container for the current scope.
 		/// </summary>
 		/// <value>The current.</value>
@@ -56,13 +66,19 @@ namespace Heliar.ComponentModel.Composition.Web
 		{
 			get
 			{
-				return CurrentInitialisedScope ?? (CurrentInitialisedScope = new CompositionContainer(requestScopeCatalog,
-																									  CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe, 
-																									  applicationScopeContainer));
+				return CurrentInitialisedScope ?? (CurrentInitialisedScope = BeginScope());
 			}
 		}
 
-		/// <summary>
+	    static CompositionContainer BeginScope() {
+	        var compositionContainer = new CompositionContainer(requestScopeCatalog,
+	            CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe, 
+	            applicationScopeContainer);
+            ConfigureContainer(compositionContainer);
+	        return compositionContainer;
+	    }
+
+	    /// <summary>
 		/// Gets the initialized composition container for the current scope.
 		/// </summary>
 		/// <value>The current initialised scope.</value>
