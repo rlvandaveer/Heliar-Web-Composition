@@ -7,8 +7,8 @@
     <ProjectGuid>{0790ABC0-B3BC-4BB7-A454-692A8AD261AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rms.ComponentModel.Composition.Web.Mvc</RootNamespace>
-    <AssemblyName>Rms.ComponentModel.Composition.Web.Mvc</AssemblyName>
+    <RootNamespace>Heliar.ComponentModel.Composition.Web.Mvc</RootNamespace>
+    <AssemblyName>Heliar.ComponentModel.Composition.Web.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
