@@ -34,7 +34,7 @@ namespace Heliar.ComponentModel.Composition.Web
 			if (initialCatalog == null)
 				initialCatalog = new WebApplicationCatalog();
 
-			var globals = initialCatalog.Filter(cpd => cpd.ContainsPartMetadata(ApplicationShared, true));
+			var globals = initialCatalog.Filter(cpd => cpd.ContainsPartMetadata(ApplicationShared, true)).IncludeDependencies();
 			applicationScopeContainer = new CompositionContainer(globals, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
 
 			requestScopeCatalog = globals.Complement;
